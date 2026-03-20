@@ -2,105 +2,39 @@ import Image from "next/image"
 import Link from "next/link"
 import { Icons } from "./icons"
 
-const doctors = [
-  {
-    name: "Dr. Rajesh Kumar",
-    specialty: "Chief Cardiologist",
-    specialtyHindi: "मुख्य हृदय रोग विशेषज्ञ",
-    experience: "20+ Years Experience",
-    image: "/images/doctor-placeholder.avif",
-    id: "rajesh-kumar",
-  },
-  {
-    name: "Dr. Priya Sharma",
-    specialty: "Senior Gynecologist",
-    specialtyHindi: "वरिष्ठ स्त्री रोग विशेषज्ञ",
-    experience: "15+ Years Experience",
-    image: "/images/doctor-female.avif",
-    id: "priya-sharma",
-  },
-  {
-    name: "Dr. Amit Patel",
-    specialty: "Orthopedic Surgeon",
-    specialtyHindi: "हड्डी रोग सर्जन",
-    experience: "18+ Years Experience",
-    image: "/images/doctor-placeholder.avif",
-    id: "amit-patel",
-  },
-  {
-    name: "Dr. Sunita Gupta",
-    specialty: "Pediatrician",
-    specialtyHindi: "बाल रोग विशेषज्ञ",
-    experience: "12+ Years Experience",
-    image: "/images/doctor-female.avif",
-    id: "sunita-gupta",
-  },
-]
-
-export default function OurTeam() {
+export default function OurTeam({ doctors = [] }) {
+  const preview = doctors.slice(0, 4)
   return (
     <section id="team" className="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gray-400 rounded-full"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gray-400 rounded-full"></div>
-        <div className="absolute top-1/2 left-10 w-16 h-16 bg-gray-400 rounded-full"></div>
-      </div>
-
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="bg-[#0D5094]/10 text-[#0D5094] px-4 py-2 rounded-full text-sm font-medium">
-              Expert Medical Team
-            </span>
-          </div>
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">Our Medical Team</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Meet our experienced and dedicated medical professionals committed to providing exceptional healthcare
-          </p>
+          <span className="bg-[#0D5094]/10 text-[#0D5094] px-4 py-2 rounded-full text-sm font-medium">Expert Medical Team</span>
+          <h2 className="text-5xl font-bold text-gray-900 mb-6 mt-4">Our Medical Team</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">Meet our experienced and dedicated medical professionals committed to providing exceptional healthcare</p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {doctors.map((doctor, index) => (
+          {preview.map((doctor, index) => (
             <Link key={index} href={`/doctors/${doctor.id}`} className="group cursor-pointer">
               <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100">
                 <div className="relative h-80 overflow-hidden">
-                  <Image
-                    src={doctor.image || "/placeholder.svg"}
-                    alt={doctor.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                  <Image src={doctor.image || "/placeholder.svg"} alt={doctor.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  {/* Floating Badge */}
-                  <div className="absolute top-4 right-4 bg-[#0D5094] text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                    View Profile
-                  </div>
+                  <div className="absolute top-4 right-4 bg-[#0D5094] text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">View Profile</div>
                 </div>
-
-                <div className="p-6 text-center relative">
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-[#0D5094] to-teal-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#0D5094] transition-colors">
-                    {doctor.name}
-                  </h3>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#0D5094] transition-colors">{doctor.name}</h3>
                   <p className="text-[#0D5094] font-semibold mb-1">{doctor.specialty}</p>
                   <p className="text-gray-600 text-sm mb-3">{doctor.specialtyHindi}</p>
-                  <p className="text-gray-500 text-sm bg-gray-50 px-3 py-1 rounded-full inline-block">
-                    {doctor.experience}
-                  </p>
+                  <p className="text-gray-500 text-sm bg-gray-50 px-3 py-1 rounded-full inline-block">{doctor.experience}</p>
                 </div>
               </div>
             </Link>
           ))}
         </div>
-
         <div className="text-center">
           <Link href="/doctors">
             <button className="group bg-gradient-to-r from-[#0D5094] to-[#1a6bb8] hover:from-[#1a6bb8] hover:to-[#0D5094] text-white px-8 py-4 rounded-full font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer inline-flex items-center">
-              View All Doctors
-              <Icons.ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              View All Doctors <Icons.ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>
         </div>

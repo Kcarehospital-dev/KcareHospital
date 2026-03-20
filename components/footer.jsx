@@ -2,186 +2,73 @@ import Image from "next/image"
 import Link from "next/link"
 import { Icons } from "./icons"
 
-export default function Footer() {
+export default function Footer({ hospital = {}, departments = [], services = [] }) {
   return (
-    <footer
-      id="contact"
-      className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden"
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 bg-white rounded-full"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white rounded-full"></div>
-      </div>
-
+    <footer id="contact" className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
       <div className="container mx-auto px-4 py-16 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Hospital Info */}
           <div>
-            <Image
-              src="/images/logo.png"
-              alt="KCare Hospital"
-              width={200}
-              height={80}
-              className="h-16 w-auto mb-6 brightness-0 invert"
-            />
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              KCare Hospital is committed to providing exceptional healthcare services with compassion, integrity, and
-              excellence. Your health is our priority.
-            </p>
+            <Image src="/images/logo.png" alt={hospital.name || "KCare Hospital"} width={200} height={80} className="h-16 w-auto mb-6 brightness-0 invert" />
+            <p className="text-gray-300 mb-6 leading-relaxed">{hospital.name || "KCare Hospital"} is committed to providing exceptional healthcare services with compassion, integrity, and excellence.</p>
           </div>
-
-          {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-semibold mb-6 text-white">Quick Links</h3>
+            <h3 className="text-xl font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="#about"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/departments"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Departments
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/doctors"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Our Doctors
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#contact"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Contact Us
-                </Link>
-              </li>
+              {[{label:"About Us", href:"/#about"},{label:"Departments", href:"/departments"},{label:"Services", href:"/services"},{label:"Our Doctors", href:"/doctors"},{label:"Contact Us", href:"/#contact"}].map(l => (
+                <li key={l.label}><Link href={l.href} className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer">{l.label}</Link></li>
+              ))}
             </ul>
           </div>
-
-          {/* Services */}
           <div>
-            <h3 className="text-xl font-semibold mb-6 text-white">Our Services</h3>
+            <h3 className="text-xl font-semibold mb-6">Departments</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/services/modular-ots"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Modular Operation Theaters
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/icu"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  ICU Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/ccu"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Cardiac Care Unit
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/computerized-lab"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Computerized Lab
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/radiology"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  Radiology
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/ct-scan"
-                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer"
-                >
-                  CT Scan
-                </Link>
-              </li>
+              {departments.slice(0, 6).map(d => (
+                <li key={d.id}><Link href={`/departments/${d.id}`} className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block cursor-pointer">{d.name}</Link></li>
+              ))}
             </ul>
           </div>
-
-          {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-semibold mb-6 text-white">Contact Information</h3>
+            <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
             <div className="space-y-4">
-              <div className="flex items-start space-x-3 group cursor-pointer">
-                <Icons.Location className="w-5 h-5 text-[#0D5094] mt-1 flex-shrink-0 group-hover:text-teal-400 transition-colors" />
-                <div>
-                  <p className="text-gray-300 group-hover:text-white transition-colors">
-                    123 Healthcare Street,
-                    <br />
-                    Medical District,
-                    <br />
-                    New Delhi - 110001
-                  </p>
+              {hospital.address && (
+                <div className="flex items-start space-x-3 group cursor-pointer">
+                  <Icons.Location className="w-5 h-5 text-[#0D5094] mt-1 flex-shrink-0" />
+                  <p className="text-gray-300 group-hover:text-white transition-colors">{hospital.address}</p>
                 </div>
-              </div>
-              <div className="flex items-center space-x-3 group cursor-pointer">
-                <Icons.Phone className="w-5 h-5 text-[#0D5094] flex-shrink-0 group-hover:text-teal-400 transition-colors" />
-                <div>
-                  <p className="text-gray-300 group-hover:text-white transition-colors">+91 98765 43210</p>
-                  <p className="text-gray-300 group-hover:text-white transition-colors">+91 11 2345 6789</p>
+              )}
+              {(hospital.phone1 || hospital.phone2) && (
+                <div className="flex items-center space-x-3 group cursor-pointer">
+                  <Icons.Phone className="w-5 h-5 text-[#0D5094] flex-shrink-0" />
+                  <div>
+                    {hospital.phone1 && <p className="text-gray-300">{hospital.phone1}</p>}
+                    {hospital.phone2 && <p className="text-gray-300">{hospital.phone2}</p>}
+                  </div>
                 </div>
+              )}
+              {hospital.email && (
+                <div className="flex items-center space-x-3 group cursor-pointer">
+                  <Icons.Email className="w-5 h-5 text-[#0D5094] flex-shrink-0" />
+                  <p className="text-gray-300">{hospital.email}</p>
+                </div>
+              )}
+              <div className="flex items-center space-x-3">
+                <Icons.Clock className="w-5 h-5 text-[#0D5094] flex-shrink-0" />
+                <p className="text-gray-300">{hospital.workingHours || "24/7 Emergency Services"}</p>
               </div>
-              <div className="flex items-center space-x-3 group cursor-pointer">
-                <Icons.Email className="w-5 h-5 text-[#0D5094] flex-shrink-0 group-hover:text-teal-400 transition-colors" />
-                <p className="text-gray-300 group-hover:text-white transition-colors">info@kcarehospital.com</p>
-              </div>
-              <div className="flex items-center space-x-3 group">
-                <Icons.Clock className="w-5 h-5 text-[#0D5094] flex-shrink-0 group-hover:text-teal-400 transition-colors" />
-                <p className="text-gray-300 group-hover:text-white transition-colors">24/7 Emergency Services</p>
-              </div>
+              {hospital.googleMapsUrl && hospital.googleMapsUrl !== "https://maps.google.com" && (
+                <a href={hospital.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-2 text-teal-400 hover:text-teal-300 text-sm mt-2">
+                  <span>📍 View on Google Maps</span>
+                </a>
+              )}
             </div>
           </div>
         </div>
-
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2024 KCare Hospital. All rights reserved.</p>
+            <p className="text-gray-400 text-sm mb-4 md:mb-0">© {new Date().getFullYear()} {hospital.name || "KCare Hospital"}. All rights reserved.</p>
             <div className="flex space-x-6">
-              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">
-                Terms of Service
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">
-                Disclaimer
-              </Link>
+              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
+              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>

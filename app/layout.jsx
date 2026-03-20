@@ -3,7 +3,6 @@ import "./globals.css"
 export const metadata = {
   title: "KCare Hospital - Multi Specialty Hospital",
   description: "Leading healthcare provider with comprehensive medical services",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({ children }) {
